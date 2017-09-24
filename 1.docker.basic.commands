@@ -1,0 +1,41 @@
+/////////////////////////////
+/// Commands Basics
+/////////////////////////////
+docker pull busybox //download image
+docker images
+docker run busybox echo Hello
+docker ps //view container
+docker ps -a //view containers stoped
+docker run alpine echo Hello //if the image dont exists locally Docker download for the store.
+
+//container its a execution of a image
+docker run -i alpine 
+docker run -i alpine /bin/sh
+docker run -t alpine /bin/sh
+
+docker stop #ContainerId
+docker rm  #ContainerId
+docker run -it alpine /bin/sh
+docker start #ContainerId
+docker attach #ContainerId
+
+docker create -it alpine /bin/sh
+docker ps -a --no-trunc
+docker exec thirsty_perlman ls
+docker exec -it thirsty_perlman ls
+docker exec -it thirsty_perlman /bin/sh
+docker ps
+docker rm thirsty_perlman
+docker rm thirsty_perlman -f
+docker run -it --name=CarlosContainer alpine /bin/sh
+cat myFile.txt | docker run -i alpine wc -l
+
+/////////////////////////////
+/// Commands Advanced
+/////////////////////////////
+docker run -rm //delete the container at the end of the execution
+docker ps -a -q
+docker ps -a -q --no-trunc
+docker ps -a -q -l
+docker rm $(docker ps -a -q -l) //delete the last container
+docker rm $(docker ps -a -q) //delete all the containers

@@ -39,3 +39,32 @@ docker ps -a -q --no-trunc
 docker ps -a -q -l
 docker rm $(docker ps -a -q -l) //delete the last container
 docker rm $(docker ps -a -q) //delete all the containers
+
+/////////////////////////////
+/// Image Creation
+/////////////////////////////
+docker ps
+docker run -it alpine /bin/sh
+    apk update
+    apk upgrade
+    nano
+    apk add nano
+    nano
+    exit
+docker commit --help
+docker commit -a "cavargas <cavargas40@gmail.com>" -m "version 1.0" 9f739bfe612a cavargas/alpine:nano
+docker images //show the new image created
+docker run -it cavargas/alpine:nano /bin/sh
+
+//docker support at least 120 images
+
+//https://hub.docker.com/
+//official repositories or in bash:
+docker search ubuntu
+docker search -s 10 ubuntu //10 or more stars
+docker pull ubuntu //download
+docker rm -f //remove container is executed
+
+docker rmi #ContainerId //remove image
+
+

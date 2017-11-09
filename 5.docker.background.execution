@@ -1,0 +1,9 @@
+/////////////////////////////
+/// Background execution
+/////////////////////////////
+docker images
+docker run cavargas/alpine:ssh /usr/sbin/sshd
+docker run -d cavargas/alpine:ssh /usr/sbin/sshd //execution in "demon" mode
+docker ps //no one container runing
+docker logs #containerIdDemonized
+

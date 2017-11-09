@@ -1,0 +1,24 @@
+/////////////////////////////
+/// Provision a Container
+/////////////////////////////
+docker ps
+docker ps -a
+docker run -it alpine /bin/sh
+    apk update
+    apk upgrade
+    apk add openssh
+    mkdir /var/run/sshd
+    adduser student
+    ls /home
+    apk add sudo
+    apk add nano
+    nano /etc/sudoers //discomment wheel
+    export TERM=xterm-color
+    nano /etc/group //search wheel and add user student
+    nano /etc/ssh/sshd_config //search  and replace "PermitRootLogin no"
+    exit
+docker ps -a    
+docker commit #ContainerId cavargas/alpine:ssh
+
+
+    

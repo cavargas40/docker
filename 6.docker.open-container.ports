@@ -1,0 +1,23 @@
+/////////////////////////////
+/// Open Container Ports
+/////////////////////////////
+docker ps -a
+docker start #containerId
+docker attach #containerId
+    cat /etc/ssh/sshd_config | grep _key
+    ssh-keygen -b 2048 -t rsa -f /etc/ssh/ssh_host_rsa_key -q
+    ssh-keygen -b 2048 -t rsa -f /etc/ssh/ssh_host_dsa_key -q
+    ssh-keygen -b 2048 -t rsa -f /etc/ssh/ssh_host_ecdsa_key -q
+    ssh-keygen -b 2048 -t rsa -f /etc/ssh/ssh_host_ed25519_key -q
+    ls /home/
+    groups student
+    exit
+docker ps -a
+docker commit #containerId cavargas/alpine:ssh
+docker run cavargas/alpine:ssh /usr/sbin/sshd
+docker ps -a
+docker logs #containerId
+docker run -d -p 22 cavargas/alpine:ssh /usr/sbin/sshd -D //custom port 22
+docker ps
+
+docker run -d -p 50000:22 cavargas/alpine:ssh /usr/sbin/sshd -D //custom port 50000 to 22

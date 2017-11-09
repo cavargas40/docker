@@ -1,0 +1,9 @@
+/////////////////////////////
+/// Commands Advanced
+/////////////////////////////
+docker run -rm //delete the container at the end of the execution
+docker ps -a -q
+docker ps -a -q --no-trunc
+docker ps -a -q -l
+docker rm $(docker ps -a -q -l) //delete the last container
+docker rm $(docker ps -a -q) //delete all the containers

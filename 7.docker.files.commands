@@ -1,0 +1,31 @@
+mkdir dockerfiles && cd dockerfiles
+mkdir alpine && cd alpine
+nano DockerFile
+docker build -t cavargas/alpine .
+docker images
+docker ps
+docker ps -a 
+docker run -d -P --name=testing cavargas/alpine       //-P look if the container exposes port
+docker ps
+docker inspect testing | grep IPAddress
+sudo student@10.1.0.76
+    yes
+    student
+        -> Logged in
+        pwd
+        echo $SHELL
+        sudo rc-status
+            student
+        sudo apk add apache2
+cd ..
+cd ..
+mkdir dockerfiles && cd dockerfiles
+mkdir ubuntu && cd ubuntu
+nano DockerFile
+docker build -t cavargas/ubuntu .
+docker images
+docker run -d -P --name=testing_ubuntu cavargas/ubuntu
+docker ps
+docker inspect testing_ubuntu | grep IPAddress
+ssh root@10.1.0.8
+

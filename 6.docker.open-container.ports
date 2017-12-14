@@ -21,3 +21,21 @@ docker run -d -p 22 cavargas/alpine:ssh /usr/sbin/sshd -D //custom port 22
 docker ps
 
 docker run -d -p 50000:22 cavargas/alpine:ssh /usr/sbin/sshd -D //custom port 50000 to 22
+
+---------------
+
+docker rm -f $(docker ps -aq)
+docker ps -a
+docker run -d -p 50000:22 --name=ssh_server cavargas/alpine:ssh /usr/sbin/sshd -D
+docker ps
+docker inspect ssh_server   //display info about container running (metadata)
+docker inspect --format='{{.NetworkSettings.IPAddress}}' ssh_server
+docker inspect ssh_server | grep IPAddress
+ssh student@172.17.0.2
+yes
+    cat /etc/os-release    //we are on ALPINE
+    pwd
+    sudo apk update
+    exit
+ssh root@172.17.0.2         //Permission Denied
+exit

@@ -1,0 +1,32 @@
+#what is the base image to use
+FROM ubuntu:14.04
+
+#who is the user or corporation wich maintain the image
+MAINTAINER cavargas <cavargas40@gmail.com>
+
+#update the system and installation of ssh services
+RUN apt-get update && apt-get install -y openssh-server
+
+#create dir for sshd
+RUN mkdir /var/run/sshd
+
+#change the password of root user
+RUN echo 'root:screencast' | chpasswd
+
+#modify the file sshd_config for root access
+RUN sed -i 's/PermitRootLogin without-password/PermitRootLogin yes/' /etc/ssh/sshd_config
+
+#ssh login fix. otherwise user is kicked off after login
+RUN sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd
+
+#establish value for not visible var
+ENV NOTVISIBLE "in users profile"
+
+#add that info to the profile file
+RUN echo "export VISIBLE=now" >> /etc/profile
+
+#exposes the port 22
+EXPOSE 22
+
+#command to execute before the container is created. Executes SSH
+CMD ["/usr/sbin/sshd", "-D"]

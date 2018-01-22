@@ -1,0 +1,6 @@
+docker ps
+docker images
+docker run -d -P --name=testing_server --restart=always ubuntu/supervisor    //restart params default ("no", on-failure[max-retries], always)
+sudo reboot
+
+docker ps

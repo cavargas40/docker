@@ -1,0 +1,18 @@
+docker images
+docker ps -a
+docker run -d --name web_server ubuntu/apache //this container its running in port 80
+
+--tunnels
+docker run -d --name ssh_server --link web_server:web_server dicotraining/alpine  //after: is the alias name
+docker ps
+
+docker exec ssh_server env
+docker inspect -f '{{.NetworkSettings.IPAddress}}' ssh_server
+
+ssh studenty@10.1.0.9
+ssh-keygen -R 10.1.0.9
+
+docker exec ssh_server cat /etc/hosts
+docker restart web_server
+
+docker exec ssh_server cat /etc/hosts

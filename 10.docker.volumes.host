@@ -1,0 +1,15 @@
+docker images
+docker ps
+docker ps -a
+mkdir webpages
+docker run -d -p 32777:80 --name sample1 -e APACHE_DOCUMENTROOT=/webapps -v ~`/webpages:/webapps ubuntu/apache
+docker logs sample1
+cd webpages/   //this on anfitrion page
+echo "sample text" >> index.html
+cat index.html
+docker rm -f sample1
+//the data on the host yet exists
+
+docker run -d -p 32777:80 --name sample2 --volumes-from sample1 -e APACHE_DOCUMENTROOT=/webapps ubuntu/apache
+docker ps
+

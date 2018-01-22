@@ -1,0 +1,38 @@
+docker images
+docker run -d --name sample1_apache -v /webapps ubuntu/apache
+docker ps
+docker exec -it sample1_apache /bin/bash
+    ls
+    cd webapps
+    touch file1
+    exit
+docker stop sample1_apache
+docker start sample1_apache
+docker exec -it sample1_apache /bin/bash
+    ls
+    cd webapps //the folder persists
+docker rm -f sample1_apache
+
+cd dockerfiles
+ls
+cp -r apache-docker/ docker-volumes
+cd docker-volumes
+nano index.html
+    <html>
+        <body>
+            <h1>My server is up</h1>
+        </body>
+    </html>
+    //save
+// edit docker file add command
+    VOLUME /webapps
+    ADD ./index.html /webapps/index.html
+docker build -t sample/volumes .
+docker images
+docker run -d --name sample_apache sample/volumes
+docker ps
+docker exec -it sample_apache /bin/bash
+    ls /webapps/
+    cat index.html
+docker run -d -p 32777:80 --name sample2_apache -e APACHE_DOCUMENTROOT=/webapps sample/volumes
+docker ps

@@ -1,0 +1,54 @@
+docker run -P --name=testing_server ubuntu/supervisor
+docker ps
+docker ps -a
+sudo nano /etc/systemd/system/testing.service
+    [Unit]
+    Descripcion=Testing container
+    Requires=docker.service network-online.target
+    After=docker.service network-online.target
+
+    [Service]
+    Restart=always
+    ExecStartPre=/usr/bin/docker kill testing_server
+    ExecStartPre=/usr/bin/docker rm testing_server
+    ExecStart=/usr/bin/docker start -a testing_server
+    ExecStart=/usr/bin/docker stop -t 2 testing_server
+
+    [Install]
+    WantedBy=multi-user.target
+
+sudo systemctl enable /etc/systemd/system/testing.service
+sudo systemctl daemon-reload
+sudo systemctl is-enabled testing.service; echo $?
+sudo systemctl status testing.service
+sudo systemctl start testing.service
+sudo systemctl status testing.service
+
+/* core os only */
+sudo cp /usr/lib/systemd/system/docker.service /etc/systemd/system/multi-user.target.wants/
+sudo nano /etc/systemd/system/multi-user.target.wants/docker.service
+
+    [Unit]
+    Description=Docker Application Cointainer Engine
+    Documentation=http://docs.docker.com
+    After=docker.socket early-docker.target network.target
+    Requires=docker.socket early-docker.target
+
+    [Service]
+    Environment=TMPDIR=/var/tmp
+    EnvironmentFile=-/run/flannel_docker_opts.env
+    MountFlags=slave
+    LimitNOFILE=1048576
+    LimitNPROC=1048576
+    ExecStart=/usr/lib/coreos/dockerd --restart=false --daemon --host=fd:// $DOCKER_OPTS $DOCKER_OPT_BIPT_IPMASQ
+
+    [Install]
+    WantedBy=multi-user.target
+sudo systemctl daemon-reload
+docker ps
+sudo reboot
+docker ps   //(container is running)
+docker kill testing_server
+docker ps
+docker stop -t 2 testing_server
+docker ps
